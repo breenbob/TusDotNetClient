@@ -64,13 +64,27 @@ namespace TusDotNetClient
                         case TusHeaderNames.ContentLength:
                             webRequest.ContentLength = long.Parse(header.Value);
                             break;
+
                         case TusHeaderNames.ContentType:
                             webRequest.ContentType = header.Value;
                             break;
+
                         default:
                             webRequest.Headers.Add(header.Key, header.Value);
                             break;
                     }
+
+                if (request.Headers.ContainsKey("Authorization"))
+                {
+                    var headerValue = request.Headers["Authorization"];
+
+                    if (headerValue?.Contains("Bearer") == true || headerValue?.Contains("OAuth") == true)
+                    {
+                        // Authorization header is not sent by default in Post requests until the server challenges.
+                        // See https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.preauthenticate?view=netframework-4.8
+                        webRequest.PreAuthenticate = true;
+                    }
+                }
 
                 if (request.BodyBytes.Count > 0)
                 {
@@ -101,7 +115,7 @@ namespace TusDotNetClient
                     }
                 }
 
-                var response = (HttpWebResponse) await webRequest.GetResponseAsync()
+                var response = (HttpWebResponse)await webRequest.GetResponseAsync()
                     .ConfigureAwait(false);
 
                 //contentLength=0 for gzipped responses due to .net bug

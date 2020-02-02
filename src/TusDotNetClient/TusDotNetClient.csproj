@@ -4,12 +4,13 @@
     <RootNamespace>TusDotNetClient</RootNamespace>
     <AssemblyName>TusDotNetClient</AssemblyName>
     <PackageId>TusDotNetClient</PackageId>
-    <Authors>jonindico</Authors>
+    <Authors>jonindico, Conor Breen</Authors>
     <Description>A client library for interacting with a Tus enabled server.</Description>
     <RepositoryUrl>https://github.com/Jon-Indico/TusDotNetClient</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Jon-Indico/TusDotNetClient</PackageProjectUrl>
     <License>MIT</License>
     <LangVersion>latest</LangVersion>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
